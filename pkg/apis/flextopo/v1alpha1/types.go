@@ -27,10 +27,10 @@ type FlexTopoSpec struct {
 
 // FlexTopoNode represents a node in the topology graph
 type FlexTopoNode struct {
-	ID         string          `json:"id"`
-	Type       string          `json:"type"`
-	Attributes json.RawMessage `json:"attributes,omitempty"`
-	Children   []*FlexTopoNode `json:"children,omitempty"`
+	ID         string                     `json:"id"`
+	Type       string                     `json:"type"`
+	Attributes map[string]json.RawMessage `json:"attributes,omitempty"`
+	Children   []*FlexTopoNode            `json:"children,omitempty"`
 }
 
 // FlexTopoEdge represents an edge in the topology graph

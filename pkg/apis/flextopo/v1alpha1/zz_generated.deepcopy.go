@@ -109,8 +109,18 @@ func (in *FlexTopoNode) DeepCopyInto(out *FlexTopoNode) {
 	*out = *in
 	if in.Attributes != nil {
 		in, out := &in.Attributes, &out.Attributes
-		*out = make(json.RawMessage, len(*in))
-		copy(*out, *in)
+		*out = make(map[string]json.RawMessage, len(*in))
+		for key, val := range *in {
+			var outVal []byte
+			if val == nil {
+				(*out)[key] = nil
+			} else {
+				in, out := &val, &outVal
+				*out = make(json.RawMessage, len(*in))
+				copy(*out, *in)
+			}
+			(*out)[key] = outVal
+		}
 	}
 	if in.Children != nil {
 		in, out := &in.Children, &out.Children
