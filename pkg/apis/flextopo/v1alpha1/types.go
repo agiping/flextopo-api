@@ -1,8 +1,9 @@
 package v1alpha1
 
 import (
+	"encoding/json"
+
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
 )
 
 // +genclient
@@ -26,10 +27,10 @@ type FlexTopoSpec struct {
 
 // FlexTopoNode represents a node in the topology graph
 type FlexTopoNode struct {
-	ID         string               `json:"id"`
-	Type       string               `json:"type"`
-	Attributes runtime.RawExtension `json:"attributes"`
-	Children   []*FlexTopoNode      `json:"children,omitempty"`
+	ID         string          `json:"id"`
+	Type       string          `json:"type"`
+	Attributes json.RawMessage `json:"attributes,omitempty"`
+	Children   []*FlexTopoNode `json:"children,omitempty"`
 }
 
 // FlexTopoEdge represents an edge in the topology graph
