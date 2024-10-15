@@ -22,8 +22,6 @@ limitations under the License.
 package v1alpha1
 
 import (
-	json "encoding/json"
-
 	runtime "k8s.io/apimachinery/pkg/runtime"
 )
 
@@ -109,17 +107,9 @@ func (in *FlexTopoNode) DeepCopyInto(out *FlexTopoNode) {
 	*out = *in
 	if in.Attributes != nil {
 		in, out := &in.Attributes, &out.Attributes
-		*out = make(map[string]json.RawMessage, len(*in))
+		*out = make(map[string]string, len(*in))
 		for key, val := range *in {
-			var outVal []byte
-			if val == nil {
-				(*out)[key] = nil
-			} else {
-				in, out := &val, &outVal
-				*out = make(json.RawMessage, len(*in))
-				copy(*out, *in)
-			}
-			(*out)[key] = outVal
+			(*out)[key] = val
 		}
 	}
 	if in.Children != nil {
